@@ -4,7 +4,7 @@ const getAllData = async () => {
     const data = await Data.find();
     return data;
   } catch (error) {
-    return;
+    return Promise.reject(err);
   }
 };
 
@@ -14,39 +14,42 @@ const getOneData = async (id) => {
     if (!data) return;
     return data;
   } catch (error) {
-    return;
+    return Promise.reject(err);
   }
   //   return;
 };
 
 const saveData = async (data) => {
   try {
-    // Create a new user object
     let { username, email } = data;
     const user = new Data({
       username,
       email
     });
-    // Save the user to the database
     await user.save();
-    return user; // Send the saved user as the response
+    return user;
   } catch (err) {
-    return err;
+    return Promise.reject(err);
   }
 };
 
-const updateOneData = () => {
-  return;
+const updateOneData = async (user) => {
+  try {
+    await user.save();
+    return user;
+  } catch (err) {
+    return Promise.reject(err);
+  }
 };
 
-const deleteOneData = () => {
-  return;
-};
+// const deleteOneData = () => {
+//   return;
+// };
 
 module.exports = {
   getAllData,
   getOneData,
   saveData,
   updateOneData,
-  deleteOneData,
+  // deleteOneData,
 };
